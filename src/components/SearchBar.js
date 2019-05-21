@@ -18,6 +18,7 @@ onInputChange = (e) => {
 onFormSubmit = (e) => {
   e.preventDefault();
   // Make sure we call the callback trom the parent component
+  this.props.onFormSubmit(this.state.searchTerm);
 };
 
   render() {
