@@ -9,7 +9,10 @@ class App extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = { videos: [] };
+    this.state = { 
+      videos: [], 
+      selectedVideo: null 
+    };
   }
 
   onSearchTermSubmit = async (searchTerm) => {
@@ -22,11 +25,17 @@ class App extends React.Component {
     this.setState({ videos: response.data.items });
   };
 
+  // this callback will allow a child component (VideoList, VideoItem) to communicate BACK up to parent 
+  // otherwise we just use props to communicate from parent to child in one direction
+  onVideoSelect = (video) => {
+    console.log('from the App Component', video);
+  };
+
   render() {
     return (
     <div className="ui container">
       <SearchBar onFormSubmit={this.onSearchTermSubmit} />
-      <VideoList videos={this.state.videos} />
+      <VideoList onVideoSelect={this.onVideoSelect} videos={this.state.videos} />
     </div>
     );
   }
