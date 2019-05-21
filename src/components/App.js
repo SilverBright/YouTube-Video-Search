@@ -1,6 +1,7 @@
 import React from 'react';
 import SearchBar from './SearchBar';
 import youTube from '../apis/youTube';
+import VideoList from './VideoList';
 
 // Class Component that will hold all of the different states for our application
 
@@ -25,7 +26,7 @@ class App extends React.Component {
     return (
     <div className="ui container">
       <SearchBar onFormSubmit={this.onSearchTermSubmit} />
-      I have { this.state.videos.length } videos.
+      <VideoList videos={this.state.videos} />
     </div>
     );
   }
