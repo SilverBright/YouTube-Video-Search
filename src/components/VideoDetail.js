@@ -17,8 +17,11 @@ import React from 'react';
     return (
       <div>
         <div className="ui embed">
-          <iframe src={videoSource} />        
-          </div>
+          <iframe 
+            title="video player" 
+            src={videoSource} 
+          />        
+        </div>
         <div className="ui segment">
           <h4 className="ui header">{video.snippet.title}</h4>
           <p>{video.snippet.description}</p>

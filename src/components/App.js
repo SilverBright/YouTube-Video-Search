@@ -16,6 +16,10 @@ class App extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.onSearchTermSubmit('');
+  }
+
   onSearchTermSubmit = async (searchTerm) => {
     const response = await youTube.get('/search', {
       params: {
@@ -23,7 +27,10 @@ class App extends React.Component {
       }
     });
 
-    this.setState({ videos: response.data.items });
+    this.setState({ 
+      videos: response.data.items,
+      selectedVideo: response.data.items[0] 
+    });
   };
 
   // this callback will allow a child component (VideoList, VideoItem) to communicate BACK up to parent 
@@ -35,13 +42,24 @@ class App extends React.Component {
 
   render() {
     return (
-    <div className="ui container">
-      <SearchBar onFormSubmit={this.onSearchTermSubmit} />
-      {/* passing down a single instance of a video */}
-      <VideoDetail video={this.state.selectedVideo} />
-      {/* passing down the video selection option and an array of videos */}
-      <VideoList onVideoSelect={this.onVideoSelect} videos={this.state.videos} />
-    </div>
+      <div className="ui container">
+        <SearchBar onFormSubmit={this.onSearchTermSubmit} />
+        {/* passing down a single instance of a video */}
+        <div className="ui grid">
+          <div className="ui row">
+            <div className="five wide column">
+              {/* passing down the video selection option and an array of videos */}
+              <VideoList 
+                onVideoSelect={this.onVideoSelect} 
+                videos={this.state.videos} 
+              />
+            </div>
+            <div className="eleven wide column">
+              <VideoDetail video={this.state.selectedVideo} />
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 }
